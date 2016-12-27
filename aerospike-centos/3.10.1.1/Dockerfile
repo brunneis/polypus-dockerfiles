@@ -35,7 +35,7 @@ RUN \
   && rpm -i aerospike/aerospike-server-*.rpm \
   && mkdir -p /var/log/aerospike/ \
   && mkdir -p /var/run/aerospike/ \
-  && rm -rf $AEROSPIKE_ARCHIVE aerospike /var/lib/apt/lists/*
+  && rm -rf $AEROSPIKE_ARCHIVE sha256 aerospike /var/lib/apt/lists/*
  
 COPY entrypoint.sh /entrypoint.sh
 
