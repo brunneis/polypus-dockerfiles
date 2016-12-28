@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM brunneis/centos-base
+FROM brunneis/centos-jdk
 MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 
 ################################################
@@ -28,10 +28,7 @@ ENV SPARK_KEYS https://dist.apache.org/repos/dist/release/spark/KEYS
 
 # Install Spark
 RUN \
-	yum -y update \
-	&& yum -y install \
-		java-1.8.0-openjdk-devel \
-	&& yum clean all \
+	yum -y update && yum clean all \
 	&& wget $SPARK_ARCHIVE_URL \
 	&& wget $SPARK_SIGNATURE_URL \
 	&& wget $SPARK_KEYS \

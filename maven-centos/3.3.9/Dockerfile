@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM brunneis/centos-base
+FROM brunneis/centos-jdk
 MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 
 ################################################
@@ -27,10 +27,7 @@ ENV MAVEN_KEYS https://dist.apache.org/repos/dist/release/maven/KEYS
 
 # Install Maven
 RUN \
-	yum -y update \
-	&& yum -y install \
-		java-1.8.0-openjdk-devel \
-	&& yum clean all \
+	yum -y update && yum clean all \
 	&& wget $MAVEN_ARCHIVE_URL \
 	&& wget $MAVEN_ASC_URL \
 	&& wget $MAVEN_KEYS \
