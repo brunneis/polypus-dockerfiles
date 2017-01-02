@@ -19,18 +19,18 @@ MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 # SPARK
 ################################################
 
-ENV SPARK_VERSION 2.0.2
-ENV SPARK_SUBVERSION bin-hadoop2.7
+ENV SPARK_VERSION 1.6.3
+ENV SPARK_SUBVERSION bin-hadoop2.6
 ENV SPARK_ARCHIVE spark-$SPARK_VERSION-$SPARK_SUBVERSION.tgz
 ENV SPARK_ARCHIVE_URL https://dist.apache.org/repos/dist/release/spark/spark-$SPARK_VERSION/$SPARK_ARCHIVE
-ENV SPARK_SIGNATURE_URL $SPARK_ARCHIVE_URL.asc
+ENV SPARK_ASC_URL $SPARK_ARCHIVE_URL.asc
 ENV SPARK_KEYS https://dist.apache.org/repos/dist/release/spark/KEYS
 
 # Install Spark
 RUN \
 	yum -y update && yum clean all \
 	&& wget $SPARK_ARCHIVE_URL \
-	&& wget $SPARK_SIGNATURE_URL \
+	&& wget $SPARK_ASC_URL \
 	&& wget $SPARK_KEYS \
 	&& gpg --import KEYS \
 	&& gpg --verify $SPARK_ARCHIVE.asc \
