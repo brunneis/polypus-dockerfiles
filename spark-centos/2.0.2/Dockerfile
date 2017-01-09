@@ -19,12 +19,12 @@ MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 # SPARK
 ################################################
 
-ENV SPARK_VERSION 1.6.3
-ENV SPARK_SUBVERSION bin-hadoop2.6
+ENV SPARK_VERSION 2.0.2
+ENV SPARK_SUBVERSION bin-without-hadoop
 ENV SPARK_ARCHIVE spark-$SPARK_VERSION-$SPARK_SUBVERSION.tgz
-ENV SPARK_ARCHIVE_URL https://dist.apache.org/repos/dist/release/spark/spark-$SPARK_VERSION/$SPARK_ARCHIVE
+ENV SPARK_ARCHIVE_URL https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/$SPARK_ARCHIVE
 ENV SPARK_ASC_URL $SPARK_ARCHIVE_URL.asc
-ENV SPARK_KEYS https://dist.apache.org/repos/dist/release/spark/KEYS
+ENV SPARK_KEYS https://archive.apache.org/dist/spark/KEYS
 
 # Install Spark
 RUN \
