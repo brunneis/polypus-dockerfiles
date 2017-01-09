@@ -47,8 +47,7 @@ VOLUME ["/opt/zookeeper/default/conf"]
 VOLUME ["/data"]
 
 # Environment variables
-ENV PATH=$PATH:/opt/zookeeper/default/bin \
-JAVA_HOME=/usr
+ENV PATH=$PATH:/opt/zookeeper/default/bin
 
 # The container stays idle
 CMD bash --login -i

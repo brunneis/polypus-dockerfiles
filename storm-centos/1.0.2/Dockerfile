@@ -47,8 +47,7 @@ VOLUME ["/opt/storm/default/conf"]
 VOLUME ["/data"]
 
 # Environment variables
-ENV PATH=$PATH:/opt/storm/default/bin \
-JAVA_HOME=/usr
+ENV PATH=$PATH:/opt/storm/default/bin
 
 # The container stays idle
 CMD bash --login -i

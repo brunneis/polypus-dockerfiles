@@ -1,4 +1,4 @@
-# Spark (Vanilla) for Orchestration on CentOS 7.
+# Spark (Vanilla) with Hadoop for Orchestration on CentOS 7.
 # Copyright (C) 2016 Rodrigo Martínez <dev@brunneis.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM brunneis/centos-jdk
+FROM brunneis/hadoop-64-passive
 MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 
 ################################################
@@ -50,7 +50,7 @@ VOLUME ["/data"]
 # Environment variables
 ENV PATH=/opt/spark/default/bin\
 :/opt/spark/default/sbin:$PATH \
-JAVA_HOME=/usr
+SPARK_DIST_CLASSPATH=/opt/hadoop/default/etc/hadoop:/opt/hadoop/default/share/hadoop/common/lib/*:/opt/hadoop/default/share/hadoop/common/*:/opt/hadoop/default/share/hadoop/hdfs:/opt/hadoop/default/share/hadoop/hdfs/lib/*:/opt/hadoop/default/share/hadoop/hdfs/*:/opt/hadoop/default/share/hadoop/yarn/lib/*:/opt/hadoop/default/share/hadoop/yarn/*:/opt/hadoop/default/share/hadoop/mapreduce/lib/*:/opt/hadoop/default/share/hadoop/mapreduce/*:/opt/hadoop/default/contrib/capacity-scheduler/*.jar
 
 # The container stays idle
 CMD bash --login -i

@@ -45,8 +45,7 @@ VOLUME ["/data"]
 
 # Environment variables
 ENV M2_HOME=/opt/maven/default \
-PATH=$M2_HOME/bin:$PATH \
-JAVA_HOME=/usr
+PATH=$M2_HOME/bin:$PATH
 
 # The container stays idle
 CMD bash --login -i
