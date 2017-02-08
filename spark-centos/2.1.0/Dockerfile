@@ -20,7 +20,7 @@ MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 ################################################
 
 ENV SPARK_VERSION 2.1.0
-ENV SPARK_SUBVERSION bin-without-hadoop
+ENV SPARK_SUBVERSION bin-hadoop2.7
 ENV SPARK_ARCHIVE spark-$SPARK_VERSION-$SPARK_SUBVERSION.tgz
 ENV SPARK_ARCHIVE_URL https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/$SPARK_ARCHIVE
 ENV SPARK_ASC_URL $SPARK_ARCHIVE_URL.asc
