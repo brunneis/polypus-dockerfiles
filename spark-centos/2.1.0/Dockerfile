@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM brunneis/hadoop-64-passive
+FROM brunneis/maven-passive
 MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 
 ################################################
@@ -49,8 +49,7 @@ VOLUME ["/data"]
 
 # Environment variables
 ENV PATH=/opt/spark/default/bin\
-:/opt/spark/default/sbin:$PATH \
-SPARK_DIST_CLASSPATH=/opt/hadoop/default/etc/hadoop:/opt/hadoop/default/share/hadoop/common/lib/*:/opt/hadoop/default/share/hadoop/common/*:/opt/hadoop/default/share/hadoop/hdfs:/opt/hadoop/default/share/hadoop/hdfs/lib/*:/opt/hadoop/default/share/hadoop/hdfs/*:/opt/hadoop/default/share/hadoop/yarn/lib/*:/opt/hadoop/default/share/hadoop/yarn/*:/opt/hadoop/default/share/hadoop/mapreduce/lib/*:/opt/hadoop/default/share/hadoop/mapreduce/*:/opt/hadoop/default/contrib/capacity-scheduler/*.jar
+:/opt/spark/default/sbin:$PATH
 
 # The container stays idle
 CMD bash --login -i
