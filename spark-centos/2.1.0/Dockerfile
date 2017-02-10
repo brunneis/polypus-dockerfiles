@@ -49,7 +49,8 @@ VOLUME ["/data"]
 
 # Environment variables
 ENV PATH=/opt/spark/default/bin\
-:/opt/spark/default/sbin:$PATH
+:/opt/spark/default/sbin:$PATH\
+:/opt/maven/default/bin
 
 # The container stays idle
 CMD bash --login -i
