@@ -1,4 +1,4 @@
-# Spark (Vanilla) with Hadoop for Orchestration on CentOS 7.
+# Zookeeper (Vanilla) for Orchestration on CentOS 7.
 # Copyright (C) 2016 Rodrigo Martínez <dev@brunneis.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -12,45 +12,36 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM brunneis/maven-passive
+FROM brunneis/jdk-centos:1.8
 MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 
 ################################################
-# SPARK
+# ZOOKEEPER
 ################################################
 
-ENV SPARK_VERSION 2.1.0
-ENV SPARK_SUBVERSION bin-hadoop2.7
-ENV SPARK_ARCHIVE spark-$SPARK_VERSION-$SPARK_SUBVERSION.tgz
-ENV SPARK_ARCHIVE_URL https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/$SPARK_ARCHIVE
-ENV SPARK_ASC_URL $SPARK_ARCHIVE_URL.asc
-ENV SPARK_KEYS https://archive.apache.org/dist/spark/KEYS
+ENV ZOOKEEPER_VERSION 3.4.9
+ENV ZOOKEEPER_ARCHIVE zookeeper-$ZOOKEEPER_VERSION.tar.gz
+ENV ZOOKEEPER_ARCHIVE_URL https://dist.apache.org/repos/dist/release/zookeeper/zookeeper-$ZOOKEEPER_VERSION/$ZOOKEEPER_ARCHIVE
+ENV ZOOKEEPER_ASC_URL $ZOOKEEPER_ARCHIVE_URL.asc
+ENV ZOOKEEPER_KEYS https://dist.apache.org/repos/dist/release/zookeeper/KEYS
 
-# Install Spark
+# Install Zookeeper
 RUN \
 	yum -y update && yum clean all \
-	&& wget $SPARK_ARCHIVE_URL \
-	&& wget $SPARK_ASC_URL \
-	&& wget $SPARK_KEYS \
+	&& wget $ZOOKEEPER_ARCHIVE_URL \
+	&& wget $ZOOKEEPER_ASC_URL \
+	&& wget $ZOOKEEPER_KEYS \
 	&& gpg --import KEYS \
-	&& gpg --verify $SPARK_ARCHIVE.asc \
-	&& mkdir /opt/spark \
-	&& tar xvf $SPARK_ARCHIVE -C /opt/spark \
-	&& rm -f $SPARK_ARCHIVE \
-	&& rm -f $SPARK_ARCHIVE.asc \
+	&& gpg --verify $ZOOKEEPER_ARCHIVE.asc \
+	&& mkdir /opt/zookeeper \
+	&& tar xvf $ZOOKEEPER_ARCHIVE -C /opt/zookeeper \
+	&& rm -f $ZOOKEEPER_ARCHIVE \
+	&& rm -f $ZOOKEEPER_ARCHIVE.asc \
 	&& rm -f KEYS \
-	&& ln -s /opt/spark/*spark* /opt/spark/default	
-	
-# Spark configuration volume
-VOLUME ["/opt/spark/default/conf"]
-
-# Data volume
-VOLUME ["/data"]
+	&& ln -s /opt/zookeeper/*zookeeper* /opt/zookeeper/default
 
 # Environment variables
-ENV PATH=/opt/spark/default/bin\
-:/opt/spark/default/sbin:$PATH\
-:/opt/maven/default/bin
+ENV PATH=$PATH:/opt/zookeeper/default/bin
 
 # The container stays idle
 CMD bash --login -i

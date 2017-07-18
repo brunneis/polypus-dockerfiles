@@ -12,14 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM brunneis/centos-jdk
+FROM brunneis/jdk-centos:1.8
 MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 
 ################################################
 # STORM
 ################################################
 
-ENV STORM_VERSION 1.0.2
+ENV STORM_VERSION 1.0.3
 ENV STORM_ARCHIVE apache-storm-$STORM_VERSION.tar.gz
 ENV STORM_ARCHIVE_URL https://dist.apache.org/repos/dist/release/storm/apache-storm-$STORM_VERSION/$STORM_ARCHIVE
 ENV STORM_ASC_URL $STORM_ARCHIVE_URL.asc
@@ -39,12 +39,6 @@ RUN \
 	&& rm -f $STORM_ARCHIVE.asc \
 	&& rm -f KEYS \
 	&& ln -s /opt/storm/*storm* /opt/storm/default
-
-# Configuration volume
-VOLUME ["/opt/storm/default/conf"]
-
-# Data volume
-VOLUME ["/data"]
 
 # Environment variables
 ENV PATH=$PATH:/opt/storm/default/bin

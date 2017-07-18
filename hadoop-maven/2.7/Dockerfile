@@ -12,14 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM brunneis/centos-jdk
+FROM brunneis/hadoop-x86-64-base:2.7
 MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 
 ################################################
 # MAVEN
 ################################################
 
-ENV MAVEN_VERSION 3.3.9
+ENV MAVEN_VERSION 3.5.0
 ENV MAVEN_ARCHIVE apache-maven-$MAVEN_VERSION-bin.tar.gz
 ENV MAVEN_ARCHIVE_URL https://dist.apache.org/repos/dist/release/maven/maven-3/$MAVEN_VERSION/binaries/$MAVEN_ARCHIVE
 ENV MAVEN_ASC_URL $MAVEN_ARCHIVE_URL.asc
@@ -39,13 +39,10 @@ RUN \
 	&& rm -f $MAVEN_ARCHIVE.asc \
 	&& rm -f KEYS \
 	&& ln -s /opt/maven/*maven* /opt/maven/default
-	
-# Data volume
-VOLUME ["/data"]
 
 # Environment variables
-ENV M2_HOME=/opt/maven/default \
-PATH=$M2_HOME/bin:$PATH
+ENV M2_HOME /opt/maven/default
+ENV PATH $M2_HOME/bin:$PATH
 
 # The container stays idle
 CMD bash --login -i

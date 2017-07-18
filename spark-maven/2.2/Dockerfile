@@ -12,14 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM brunneis/hadoop-64-passive
+FROM polypus/hadoop-maven:2.7
 MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 
 ################################################
 # SPARK
 ################################################
 
-ENV SPARK_VERSION 2.0.2
+ENV SPARK_VERSION 2.2.0
 ENV SPARK_SUBVERSION bin-without-hadoop
 ENV SPARK_ARCHIVE spark-$SPARK_VERSION-$SPARK_SUBVERSION.tgz
 ENV SPARK_ARCHIVE_URL https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/$SPARK_ARCHIVE
@@ -39,13 +39,7 @@ RUN \
 	&& rm -f $SPARK_ARCHIVE \
 	&& rm -f $SPARK_ARCHIVE.asc \
 	&& rm -f KEYS \
-	&& ln -s /opt/spark/*spark* /opt/spark/default	
-	
-# Spark configuration volume
-VOLUME ["/opt/spark/default/conf"]
-
-# Data volume
-VOLUME ["/data"]
+	&& ln -s /opt/spark/*spark* /opt/spark/default
 
 # Environment variables
 ENV PATH=/opt/spark/default/bin\

@@ -1,4 +1,4 @@
-# Zookeeper (Vanilla) for Orchestration on CentOS 7.
+# Storm (Vanilla) for Orchestration on CentOS 7.
 # Copyright (C) 2016 Rodrigo Martínez <dev@brunneis.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -12,42 +12,36 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM brunneis/centos-jdk
+FROM brunneis/jdk-centos:1.8
 MAINTAINER "Rodrigo Martínez" <dev@brunneis.com>
 
 ################################################
-# ZOOKEEPER
+# STORM
 ################################################
 
-ENV ZOOKEEPER_VERSION 3.4.9
-ENV ZOOKEEPER_ARCHIVE zookeeper-$ZOOKEEPER_VERSION.tar.gz
-ENV ZOOKEEPER_ARCHIVE_URL https://dist.apache.org/repos/dist/release/zookeeper/zookeeper-$ZOOKEEPER_VERSION/$ZOOKEEPER_ARCHIVE
-ENV ZOOKEEPER_ASC_URL $ZOOKEEPER_ARCHIVE_URL.asc
-ENV ZOOKEEPER_KEYS https://dist.apache.org/repos/dist/release/zookeeper/KEYS
+ENV STORM_VERSION 1.1.0
+ENV STORM_ARCHIVE apache-storm-$STORM_VERSION.tar.gz
+ENV STORM_ARCHIVE_URL https://dist.apache.org/repos/dist/release/storm/apache-storm-$STORM_VERSION/$STORM_ARCHIVE
+ENV STORM_ASC_URL $STORM_ARCHIVE_URL.asc
+ENV STORM_KEYS https://dist.apache.org/repos/dist/release/storm/KEYS
 
-# Install Zookeeper
+# Install Storm
 RUN \
 	yum -y update && yum clean all \
-	&& wget $ZOOKEEPER_ARCHIVE_URL \
-	&& wget $ZOOKEEPER_ASC_URL \
-	&& wget $ZOOKEEPER_KEYS \
+	&& wget $STORM_ARCHIVE_URL \
+	&& wget $STORM_ASC_URL \
+	&& wget $STORM_KEYS \
 	&& gpg --import KEYS \
-	&& gpg --verify $ZOOKEEPER_ARCHIVE.asc \
-	&& mkdir /opt/zookeeper \
-	&& tar xvf $ZOOKEEPER_ARCHIVE -C /opt/zookeeper \
-	&& rm -f $ZOOKEEPER_ARCHIVE \
-	&& rm -f $ZOOKEEPER_ARCHIVE.asc \
+	&& gpg --verify $STORM_ARCHIVE.asc \
+	&& mkdir /opt/storm \
+	&& tar xvf $STORM_ARCHIVE -C /opt/storm \
+	&& rm -f $STORM_ARCHIVE \
+	&& rm -f $STORM_ARCHIVE.asc \
 	&& rm -f KEYS \
-	&& ln -s /opt/zookeeper/*zookeeper* /opt/zookeeper/default
-
-# Configuration volume
-VOLUME ["/opt/zookeeper/default/conf"]
-
-# Data volume
-VOLUME ["/data"]
+	&& ln -s /opt/storm/*storm* /opt/storm/default
 
 # Environment variables
-ENV PATH=$PATH:/opt/zookeeper/default/bin
+ENV PATH=$PATH:/opt/storm/default/bin
 
 # The container stays idle
 CMD bash --login -i
